@@ -1,11 +1,14 @@
 package com.bradyaiello.asynchrony
 
+import android.os.AsyncTask
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,10 +18,13 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class MainViewModel : ViewModel() {
+
+    val asyncTaskNumber = MutableLiveData<Int>()
     val callNumber = MutableLiveData<Int>()
     val singleNumber = MutableLiveData<Int>()
     val stringNumber = MutableLiveData<Int>()
 
+    val asyncTaskResultMutableLiveData = MutableLiveData<String>()
     val callResultMutableLiveData = MutableLiveData<String>()
     val singleResultMutableLiveData = MutableLiveData<String>()
     val stringResultMutableLiveData = MutableLiveData<String>()
@@ -26,28 +32,34 @@ class MainViewModel : ViewModel() {
     private val scalarsConverter = ScalarsConverterFactory.create()
 
     private val url = "http://numbersapi.com"
-    val numbersServiceCall = Retrofit.Builder()
+    val numberFactsService = Retrofit.Builder()
         .baseUrl(url)
-        .addConverterFactory(scalarsConverter)
+        .addConverterFactory(scalarsConverter) // String Return Type
         .addConverterFactory(moshiConverter)
-        .build()
-        .create(NumbersServiceCall::class.java)
-
-    val numbersServiceSingle = Retrofit.Builder()
-        .baseUrl(url)
-        .addConverterFactory(scalarsConverter)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(NumbersServiceSingle::class.java)
+        .create(NumberFactsService::class.java)
 
-    val numbersServiceString = Retrofit.Builder()
-        .baseUrl(url)
-        .addConverterFactory(scalarsConverter)
-        .build()
-        .create(NumbersServiceString::class.java)
+    fun getNumberFactAsyncTask(num: String) {
+        class NumberAsyncTask : AsyncTask<String, Void, Int>() {
+            override fun doInBackground(vararg params: String): Int {
+                val number = params[0]
+                val client = OkHttpClient()
+                val request = Request.Builder()
+                    .url("$url/$number")
+                    .get()
+                    .build();
+                val response = client.newCall(request).execute()
+                asyncTaskResultMutableLiveData.postValue(response.body()?.string())
+                return 0
+            }
+        }
+        val numberAsyncTask = NumberAsyncTask()
+        numberAsyncTask.execute(num)
+    }
 
     fun getNumberFactCall(num: String) {
-        numbersServiceCall.getNumber(num)
+        numberFactsService.getNumberFactCall(num)
             .enqueue(object: Callback<String> {
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     callResultMutableLiveData.postValue(t.localizedMessage)
@@ -59,16 +71,16 @@ class MainViewModel : ViewModel() {
             })
     }
 
-    fun getNumberSingle(num: String) {
-        val disposable = numbersServiceSingle.getNumber(num)
+    fun getNumberFactSingle(num: String) {
+        val disposable = numberFactsService.getNumberFactSingle(num)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe{ s -> singleResultMutableLiveData.postValue(s)}
     }
 
-    fun getNumberString(num: String) {
+    fun getNumberFactString(num: String) {
         viewModelScope.launch {
-            val result = numbersServiceString.getNumber(num)
+            val result = numberFactsService.getNumberFactString(num)
             stringResultMutableLiveData.postValue(result)
         }
     }

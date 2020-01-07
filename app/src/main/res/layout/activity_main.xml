@@ -12,13 +12,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/asyncTaskRow"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/callRow">
+        <EditText
+            android:id="@+id/asyncTaskET"
+            android:inputType="number"
+            android:hint="number"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@{String.valueOf(viewmodel.asyncTaskNumber)}"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/asyncTaskButton"
+            android:layout_margin="16dp"
+            style="?materialButtonOutlinedStyle"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AsyncTask"/>
+
+        <TextView
+            android:id="@+id/asyncTaskResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Hello World!" />
+
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/callRow"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/asyncTaskRow"
         app:layout_constraintBottom_toTopOf="@id/singleRow">
         <EditText
             android:id="@+id/callET"

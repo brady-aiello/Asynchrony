@@ -15,24 +15,32 @@ class MainActivity : AppCompatActivity() {
         val viewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
+
+        binding.asyncTaskButton.setOnClickListener {
+            viewModel.getNumberFactAsyncTask(binding.asyncTaskET.text.toString())
+        }
+
         binding.callButton.setOnClickListener {
             viewModel.getNumberFactCall(binding.callET.text.toString())
         }
         binding.singleButton.setOnClickListener {
-            viewModel.getNumberSingle(binding.singleET.text.toString())
+            viewModel.getNumberFactSingle(binding.singleET.text.toString())
         }
         binding.stringButton.setOnClickListener {
-            viewModel.getNumberString(binding.stringET.text.toString())
+            viewModel.getNumberFactString(binding.stringET.text.toString())
         }
 
-        viewModel.callResultMutableLiveData.observe(this, Observer<String> { fact ->
-            binding.callResult.text = fact
+        viewModel.asyncTaskResultMutableLiveData.observe(this, Observer<String> {
+            binding.asyncTaskResult.text = it
         })
-        viewModel.singleResultMutableLiveData.observe(this, Observer<String> { fact ->
-            binding.singleResult.text = fact
+        viewModel.callResultMutableLiveData.observe(this, Observer<String> {
+            binding.callResult.text = it
         })
-        viewModel.stringResultMutableLiveData.observe(this, Observer<String> { fact ->
-            binding.stringResult.text = fact
+        viewModel.singleResultMutableLiveData.observe(this, Observer<String> {
+            binding.singleResult.text = it
+        })
+        viewModel.stringResultMutableLiveData.observe(this, Observer<String> {
+            binding.stringResult.text = it
         })
 
     }
