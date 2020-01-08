@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".numberfact.NumberFactActivity">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.bradyaiello.asynchrony.numberfact.NumberFactActivityViewModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/asyncTaskRow"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/callRow">
+        <EditText
+            android:id="@+id/asyncTaskET"
+            android:inputType="number"
+            android:hint="number"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@{String.valueOf(viewmodel.asyncTaskNumber)}"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/asyncTaskButton"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            style="?materialButtonOutlinedStyle"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AsyncTask"/>
+
+        <TextView
+            android:id="@+id/asyncTaskResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Hello World!" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/callRow"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/asyncTaskRow"
+        app:layout_constraintBottom_toTopOf="@id/singleRow">
+        <EditText
+            android:id="@+id/callET"
+            android:inputType="number"
+            android:hint="number"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@{String.valueOf(viewmodel.callNumber)}"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            style="?materialButtonOutlinedStyle"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:id="@+id/callButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Call&lt;String&gt;"/>
+
+        <TextView
+            android:id="@+id/callResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Hello World!" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/singleRow"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/callRow"
+        app:layout_constraintBottom_toBottomOf="@id/stringRow">
+
+        <EditText
+            android:id="@+id/singleET"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:inputType="number"
+            android:hint="number"
+            android:text="@{String.valueOf(viewmodel.singleNumber)}"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/singleButton"
+            style="?materialButtonOutlinedStyle"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Single&lt;String&gt;"/>
+        <TextView
+            android:id="@+id/singleResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Hello World!" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/stringRow"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/singleRow"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/stringET"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@{String.valueOf(viewmodel.stringNumber)}"
+            android:inputType="number"
+            android:hint="number"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/stringButton"
+            style="?materialButtonOutlinedStyle"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="String" />
+
+        <TextView
+            android:id="@+id/stringResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Hello World!" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

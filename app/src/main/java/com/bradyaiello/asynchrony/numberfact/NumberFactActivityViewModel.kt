@@ -1,22 +1,23 @@
-package com.bradyaiello.asynchrony
+package com.bradyaiello.asynchrony.numberfact
 
 import android.os.AsyncTask
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bradyaiello.asynchrony.NumberFactsService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+import retrofit2.*
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.lang.Exception
 
-class MainViewModel : ViewModel() {
+class NumberFactActivityViewModel : ViewModel() {
 
     val asyncTaskNumber = MutableLiveData<Int>()
     val callNumber = MutableLiveData<Int>()
@@ -30,6 +31,7 @@ class MainViewModel : ViewModel() {
     private val scalarsConverter = ScalarsConverterFactory.create()
 
     private val url = "http://numbersapi.com"
+    private val TAG = NumberFactActivity::class.java.canonicalName.toString()
     private val numberFactsService : NumberFactsService = Retrofit.Builder()
         .baseUrl(url)
         .addConverterFactory(scalarsConverter) // String Return Type
@@ -47,7 +49,7 @@ class MainViewModel : ViewModel() {
                     .get()
                     .build();
                 val response = client.newCall(request).execute()
-                asyncTaskResultMutableLiveData.postValue(response.body()?.string())
+                asyncTaskResultMutableLiveData.postValue(response.body?.string())
                 return 0
             }
         }
@@ -72,13 +74,20 @@ class MainViewModel : ViewModel() {
         val disposable = numberFactsService.getNumberFactSingle(num)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{ s -> singleResultMutableLiveData.postValue(s)}
+            .subscribe(
+                { s -> singleResultMutableLiveData.postValue(s)},
+                { e -> Log.e(TAG, e.toString())}
+            )
     }
 
     fun getNumberFactString(num: String) {
-        viewModelScope.launch {
-            val result = numberFactsService.getNumberFactString(num)
-            stringResultMutableLiveData.postValue(result)
+        val deferred = viewModelScope.launch {
+            try {
+                val result = numberFactsService.getNumberFactString(num)
+                stringResultMutableLiveData.postValue(result)
+            } catch (e: HttpException) {
+                Log.e(TAG, e.toString())
+            }
         }
     }
 }

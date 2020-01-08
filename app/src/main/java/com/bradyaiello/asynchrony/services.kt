@@ -23,9 +23,11 @@ interface NumberFactsService {
 }
 
 interface CatFactService {
-    @GET("fact/random?amount=1")
+
+    @GET("facts/random?amount=1")
     suspend fun getRandomCatFact() : CatFact
 
-    @GET("fact/random")
-    suspend fun getRandomCatFact(@Query(value = "amount") amount: String) : List<CatFact>
+    @GET("facts/random")
+    suspend fun getRandomCatFacts(@Query(value = "amount") amount: String) : List<CatFact>
 }
+

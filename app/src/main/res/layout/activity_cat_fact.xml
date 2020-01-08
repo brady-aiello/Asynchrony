@@ -4,26 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".catfact.CatFactActivity">
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/goToNumberFactActivity"
+        android:id="@+id/getCatFactButton"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Number Facts"
+        android:text="Get Cat Fact"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/goToCatFactActivity"/>
+        app:layout_constraintBottom_toTopOf="@id/catFactTV"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/goToCatFactActivity"
+    <TextView
+        android:id="@+id/catFactTV"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cat Facts"
+        tools:text="Cat Fact will show here."
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/goToNumberFactActivity"/>
+        app:layout_constraintTop_toBottomOf="@id/getCatFactButton"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

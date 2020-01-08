@@ -1,8 +1,5 @@
 package com.bradyaiello.asynchrony.models
 
-import com.squareup.moshi.JsonClass
-
-@JsonClass(generateAdapter = true)
 data class CatFact (
     val used: Boolean,
     val source: String,
@@ -17,7 +14,6 @@ data class CatFact (
     val status: CatFactStatus
 )
 
-@JsonClass(generateAdapter = true)
 data class CatFactStatus (
     val verified: Boolean,
     val sentCount: Int
