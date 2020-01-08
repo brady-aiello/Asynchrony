@@ -14,7 +14,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class MainViewModel : ViewModel() {
@@ -28,14 +27,12 @@ class MainViewModel : ViewModel() {
     val callResultMutableLiveData = MutableLiveData<String>()
     val singleResultMutableLiveData = MutableLiveData<String>()
     val stringResultMutableLiveData = MutableLiveData<String>()
-    private val moshiConverter = MoshiConverterFactory.create()
     private val scalarsConverter = ScalarsConverterFactory.create()
 
     private val url = "http://numbersapi.com"
-    val numberFactsService = Retrofit.Builder()
+    private val numberFactsService : NumberFactsService = Retrofit.Builder()
         .baseUrl(url)
         .addConverterFactory(scalarsConverter) // String Return Type
-        .addConverterFactory(moshiConverter)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(NumberFactsService::class.java)

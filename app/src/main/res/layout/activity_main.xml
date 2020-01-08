@@ -22,14 +22,18 @@
             android:id="@+id/asyncTaskET"
             android:inputType="number"
             android:hint="number"
-            android:layout_width="32dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             android:text="@{String.valueOf(viewmodel.asyncTaskNumber)}"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/asyncTaskButton"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             style="?materialButtonOutlinedStyle"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:layout_width="wrap_content"
@@ -57,13 +61,17 @@
             android:id="@+id/callET"
             android:inputType="number"
             android:hint="number"
-            android:layout_width="32dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             android:text="@{String.valueOf(viewmodel.callNumber)}"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             style="?materialButtonOutlinedStyle"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:id="@+id/callButton"
@@ -90,9 +98,11 @@
 
         <EditText
             android:id="@+id/singleET"
-            android:layout_width="32dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             android:inputType="number"
             android:hint="number"
             android:text="@{String.valueOf(viewmodel.singleNumber)}"/>
@@ -103,7 +113,9 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             android:text="Single&lt;String&gt;"/>
         <TextView
             android:id="@+id/singleResult"
@@ -125,11 +137,14 @@
 
         <EditText
             android:id="@+id/stringET"
-            android:layout_width="32dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             android:text="@{String.valueOf(viewmodel.stringNumber)}"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:hint="number"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/stringButton"
@@ -137,7 +152,9 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             android:text="String" />
 
         <TextView
