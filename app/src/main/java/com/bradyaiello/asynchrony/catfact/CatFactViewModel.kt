@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bradyaiello.asynchrony.CatFactService
 import com.bradyaiello.asynchrony.models.CatFact
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,7 +16,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class CatFactViewModel : ViewModel() {
     private val TAG = CatFactViewModel::class.java.toString()
-    val catFactLiveData = MutableLiveData<CatFact>()
+    var catFactMutableLiveData = MutableLiveData<CatFact>()
     private val url = "https://cat-fact.herokuapp.com"
     private val loggingInterceptor = HttpLoggingInterceptor()
     private var catFactService : CatFactService
@@ -26,7 +27,7 @@ class CatFactViewModel : ViewModel() {
             .addInterceptor(loggingInterceptor)
             .build()
 
-        catFactService  = Retrofit.Builder()
+        catFactService = Retrofit.Builder()
             .client(httpClient)
             .baseUrl(url)
             .addConverterFactory(MoshiConverterFactory.create())
@@ -35,14 +36,13 @@ class CatFactViewModel : ViewModel() {
     }
 
     fun getCatFact() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val catFact = catFactService.getRandomCatFact()
-                catFactLiveData.postValue(catFact)
+                catFactMutableLiveData.postValue(catFact)
             } catch (e: HttpException) {
                 Log.e(TAG, e.toString())
             }
-
         }
     }
 }
