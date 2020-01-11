@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bradyaiello.asynchrony.R
 import com.bradyaiello.asynchrony.models.CatFact
+import com.uber.autodispose.AutoDispose
 import kotlinx.android.synthetic.main.activity_cat_fact.*
 
 class CatFactActivity : AppCompatActivity() {
@@ -20,8 +21,21 @@ class CatFactActivity : AppCompatActivity() {
         getCatFactButton.setOnClickListener {
             viewModel.getCatFact()
         }
+        getCatFactButtonRxJava.setOnClickListener {
+            viewModel.getCatFactObservable()
+        }
+
+        getCatFactButtonJavaMoshiModel.setOnClickListener {
+            viewModel.getCatFactJavaModelMoshi()
+        }
         viewModel.catFactMutableLiveData.observe(this, Observer<CatFact> {
             catFactTV.text = it.text
+        })
+        viewModel.catFactLiveData.observe(this, Observer<CatFact> {
+            catFactStartUpTV.text = it.text
+        })
+        viewModel.catFactStringMutableLiveData.observe(this, Observer<String> {
+            catFactTV.text = it
         })
     }
 }

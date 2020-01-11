@@ -10,22 +10,50 @@
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Get Cat Fact"
+        android:text="Get Cat Fact (Coroutines)"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/catFactTV"/>
-
+        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/getCatFactButtonRxJava"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Cat Fact (Observable)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/getCatFactButton" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/getCatFactButtonJavaMoshiModel"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Cat Fact (Java POJO)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/getCatFactButtonRxJava" />
+    <TextView
+        android:id="@+id/catFactStartUpTV"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Launched from LiveData Scope"
+        tools:text="Cat Fact will show here."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/getCatFactButtonJavaMoshiModel"/>
     <TextView
         android:id="@+id/catFactTV"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="16sp"
         tools:text="Cat Fact will show here."
+        android:text="Click a button for a cat fact."
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/getCatFactButton"/>
+        app:layout_constraintTop_toBottomOf="@id/catFactStartUpTV"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

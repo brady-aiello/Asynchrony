@@ -46,6 +46,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.1.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03")
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:2.1.0"
     implementation("com.squareup.retrofit2:retrofit:2.7.1")
     implementation("io.reactivex.rxjava2:rxjava:2.2.16")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
@@ -54,6 +55,10 @@ dependencies {
 
     implementation("com.squareup.retrofit2:converter-moshi:2.7.1")
     implementation("com.squareup.retrofit2:converter-scalars:2.1.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.5.0")
+
+    implementation("com.uber.autodispose:autodispose:1.2.0")
+    implementation("com.uber.autodispose:autodispose-android-archcomponents:1.4.0")
 
     implementation("com.google.android.material:material:1.2.0-alpha03")
     testImplementation("junit:junit:4.12")
