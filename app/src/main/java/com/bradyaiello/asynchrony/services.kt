@@ -2,6 +2,7 @@ package com.bradyaiello.asynchrony
 
 import com.bradyaiello.asynchrony.models.CatFact
 import com.bradyaiello.asynchrony.models.CatFactJavaModelMoshi
+import com.bradyaiello.asynchrony.models.CatFactModelGson
 import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.GET
@@ -35,6 +36,9 @@ interface CatFactService {
     suspend fun getRandomCatFacts(@Query(value = "amount") amount: String) : List<CatFact>
 
     @GET("facts/random?amount=1")
-    suspend fun getRandomCatFactJavaModel() : CatFactJavaModelMoshi
+    suspend fun getRandomCatFactJavaModelMoshi() : CatFactJavaModelMoshi
+
+    @GET("facts/random?amount=1")
+    suspend fun getRandomCatFactJavaModelGson() : CatFactModelGson
 }
 

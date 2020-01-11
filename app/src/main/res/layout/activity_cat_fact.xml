@@ -28,10 +28,19 @@
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Get Cat Fact (Java POJO)"
+        android:text="Get Cat Fact (Moshi Java POJO)"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/getCatFactButtonRxJava" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/getCatFactButtonJavaGsonModel"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Cat Fact (Gson Java POJO)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/getCatFactButtonJavaMoshiModel" />
     <TextView
         android:id="@+id/catFactStartUpTV"
         android:layout_margin="16dp"
@@ -42,7 +51,7 @@
         tools:text="Cat Fact will show here."
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/getCatFactButtonJavaMoshiModel"/>
+        app:layout_constraintTop_toBottomOf="@id/getCatFactButtonJavaGsonModel"/>
     <TextView
         android:id="@+id/catFactTV"
         android:layout_margin="16dp"

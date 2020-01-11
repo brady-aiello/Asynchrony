@@ -28,11 +28,17 @@ class CatFactActivity : AppCompatActivity() {
         getCatFactButtonJavaMoshiModel.setOnClickListener {
             viewModel.getCatFactJavaModelMoshi()
         }
+        getCatFactButtonJavaGsonModel.setOnClickListener {
+            viewModel.getCatFactJavaModelGson()
+        }
         viewModel.catFactMutableLiveData.observe(this, Observer<CatFact> {
             catFactTV.text = it.text
         })
         viewModel.catFactLiveData.observe(this, Observer<CatFact> {
             catFactStartUpTV.text = it.text
+        })
+        viewModel.catFactStringMutableLiveData.observe(this, Observer<String> {
+            catFactTV.text = it
         })
         viewModel.catFactStringMutableLiveData.observe(this, Observer<String> {
             catFactTV.text = it

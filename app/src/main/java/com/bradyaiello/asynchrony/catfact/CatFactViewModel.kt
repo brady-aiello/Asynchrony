@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.bradyaiello.asynchrony.CatFactService
 import com.bradyaiello.asynchrony.models.CatFact
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -82,7 +81,17 @@ class CatFactViewModel : ViewModel() {
     fun getCatFactJavaModelMoshi() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val catFact = catFactService.getRandomCatFactJavaModel()
+                val catFact = catFactService.getRandomCatFactJavaModelMoshi()
+                catFactStringMutableLiveData.postValue(catFact.text)
+            } catch (e: UnknownHostException) {
+                Log.e(TAG, e.toString())
+            }
+        }
+    }
+    fun getCatFactJavaModelGson() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val catFact = catFactService.getRandomCatFactJavaModelGson()
                 catFactStringMutableLiveData.postValue(catFact.text)
             } catch (e: UnknownHostException) {
                 Log.e(TAG, e.toString())

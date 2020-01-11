@@ -37,5 +37,5 @@ public class CatFactModelGson {
     @SerializedName("status")
     @Expose
     public StatusModelGson statusModelGson;
-
 }
+
