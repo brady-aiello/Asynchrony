@@ -21,7 +21,7 @@ import java.net.UnknownHostException
 class CatFactViewModel : ViewModel() {
     private val TAG = CatFactViewModel::class.java.toString()
     var catFactMutableLiveData = MutableLiveData<CatFact>()
-    lateinit var catFactLiveData: LiveData<CatFact>
+    var catFactLiveData: LiveData<CatFact>
     private val url = "https://cat-fact.herokuapp.com"
     private val loggingInterceptor = HttpLoggingInterceptor()
     private var catFactService : CatFactService
@@ -97,5 +97,10 @@ class CatFactViewModel : ViewModel() {
                 Log.e(TAG, e.toString())
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        catFactToDispose?.dispose()
     }
 }

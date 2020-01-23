@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bradyaiello.asynchrony.NumberFactsService
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
@@ -29,6 +31,9 @@ class NumberFactActivityViewModel : ViewModel() {
     val singleResultMutableLiveData = MutableLiveData<String>()
     val stringResultMutableLiveData = MutableLiveData<String>()
     private val scalarsConverter = ScalarsConverterFactory.create()
+    private var call : Call<String>? = null
+    private var numberAsyncTask: AsyncTask<String, Void, Int>? = null
+    private var disposable: Disposable? = null
 
     private val url = "http://numbersapi.com"
     private val TAG = NumberFactActivity::class.java.canonicalName.toString()
@@ -53,25 +58,25 @@ class NumberFactActivityViewModel : ViewModel() {
                 return 0
             }
         }
-        val numberAsyncTask = NumberAsyncTask()
-        numberAsyncTask.execute(num)
+        numberAsyncTask = NumberAsyncTask()
+        numberAsyncTask?.execute(num)
     }
 
     fun getNumberFactCall(num: String) {
-        numberFactsService.getNumberFactCall(num)
-            .enqueue(object: Callback<String> {
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    callResultMutableLiveData.postValue(t.localizedMessage)
-                }
+        call = numberFactsService.getNumberFactCall(num)
+        call?.enqueue(object: Callback<String> {
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                callResultMutableLiveData.postValue(t.localizedMessage)
+            }
 
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    callResultMutableLiveData.postValue(response.body())
-                }
-            })
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                callResultMutableLiveData.postValue(response.body())
+            }
+        })
     }
 
     fun getNumberFactSingle(num: String) {
-        val disposable = numberFactsService.getNumberFactSingle(num)
+        disposable = numberFactsService.getNumberFactSingle(num)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -89,5 +94,12 @@ class NumberFactActivityViewModel : ViewModel() {
                 Log.e(TAG, e.toString())
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        call?.cancel()
+        numberAsyncTask?.cancel(true)
+        disposable?.dispose()
     }
 }
